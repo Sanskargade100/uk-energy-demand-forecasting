@@ -126,3 +126,11 @@ columns and licence terms.
 
 Code released under the MIT License (see `LICENSE`). NESO demand data is used under the
 NESO Open Data Licence and is **not** redistributed in this repository.
+
+## Getting started on macOS
+
+Clone the repository and enter the project:
+
+```bash
+git clone https://github.com/YOUR_USERNAME/uk-energy-demand-forecasting.git
+cd uk-energy-demand-forecasting

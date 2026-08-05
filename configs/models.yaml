@@ -1,0 +1,53 @@
+# Model ladder and validation settings. All models share the same walk-forward splits.
+validation:
+  scheme: walk_forward          # rolling-origin; never a random split
+  n_splits: 6
+  test_size_periods: 96         # 48h test window per fold
+  step_periods: 96
+  gap_periods: 0
+
+intervals:
+  levels: [0.80, 0.95]
+  method: quantile              # quantile regression / conformal per model
+
+models:
+  seasonal_naive:
+    enabled: true
+    season_length_periods: 336  # one week
+
+  sarimax:
+    enabled: true
+    order: [2, 1, 2]
+    seasonal_order: [1, 0, 1, 48]
+
+  prophet:
+    enabled: false
+    seasonality_mode: multiplicative
+
+  xgboost:
+    enabled: true
+    params:
+      n_estimators: 600
+      max_depth: 6
+      learning_rate: 0.05
+      subsample: 0.8
+      colsample_bytree: 0.8
+    quantile_alphas: [0.025, 0.10, 0.50, 0.90, 0.975]
+
+  lightgbm:
+    enabled: false
+    params:
+      n_estimators: 800
+      num_leaves: 63
+      learning_rate: 0.05
+
+  lstm:
+    enabled: false
+    input_periods: 336
+    hidden_size: 64
+    num_layers: 2
+    dropout: 0.1
+    max_epochs: 30
+    batch_size: 64
+
+primary_metric: mae

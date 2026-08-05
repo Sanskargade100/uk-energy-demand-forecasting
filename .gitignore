@@ -1,0 +1,49 @@
+# Byte-compiled / optimized
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environments
+.venv/
+venv/
+env/
+.env
+
+# Packaging / build
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Data — do not commit raw or processed data (NESO Open Data Licence: not redistributed)
+data/raw/*
+data/interim/*
+data/processed/*
+data/external/*
+!data/**/.gitkeep
+
+# Model artifacts
+models/*
+!models/.gitkeep
+!models/README.md
+
+# Reports output (keep the committed comparison + report, ignore generated figures)
+reports/figures/*
+!reports/figures/.gitkeep
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/

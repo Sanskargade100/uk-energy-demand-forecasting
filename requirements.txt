@@ -1,0 +1,28 @@
+# Runtime dependencies. For an editable install with dev tooling use:  pip install -e ".[dev]"
+pandas>=2.0
+numpy>=1.24
+scipy>=1.10
+pyyaml>=6.0
+python-dotenv>=1.0
+requests>=2.31
+sqlalchemy>=2.0
+scikit-learn>=1.3
+statsmodels>=0.14
+prophet>=1.1
+xgboost>=2.0
+lightgbm>=4.0
+shap>=0.44
+matplotlib>=3.7
+plotly>=5.18
+streamlit>=1.30
+fastapi>=0.110
+uvicorn[standard]>=0.27
+pydantic>=2.5
+pydantic-settings>=2.1
+holidays>=0.45
+joblib>=1.3
+
+# Deep learning (optional / heavier) — install if training LSTM / TFT
+# torch>=2.1
+# pytorch-lightning>=2.1
+# pytorch-forecasting>=1.0

@@ -1,0 +1,34 @@
+# Data sources and storage locations.
+target:
+  name: national_demand
+  column: ND            # NESO National Demand, MW
+  unit: MW
+  frequency: 30min      # half-hourly settlement periods
+  timezone: Europe/London
+
+sources:
+  demand:
+    provider: neso
+    base_url_env: NESO_BASE_URL
+    resource_id_env: NESO_DEMAND_RESOURCE_ID
+    start_date: "2016-01-01"
+  weather:
+    provider_env: WEATHER_PROVIDER
+    # Population-weighted GB cities for demand-relevant temperature
+    locations:
+      - { name: London,     lat: 51.5074, lon: -0.1278 }
+      - { name: Manchester, lat: 53.4808, lon: -2.2426 }
+      - { name: Birmingham, lat: 52.4862, lon: -1.8904 }
+      - { name: Glasgow,    lat: 55.8642, lon: -4.2518 }
+      - { name: Cardiff,    lat: 51.4816, lon: -3.1791 }
+    variables: [temperature_2m, wind_speed_10m, shortwave_radiation, relative_humidity_2m]
+  holidays:
+    country: GB
+    subdivisions: [ENG, SCT, WLS]
+
+paths:
+  raw: data/raw
+  interim: data/interim
+  processed: data/processed
+  external: data/external
+  database_url_env: DATABASE_URL

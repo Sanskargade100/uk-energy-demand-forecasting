@@ -1,0 +1,5 @@
+model,mae_mw,rmse_mw,mape_pct,pinball_80,pinball_95,coverage_80,coverage_95,notes
+seasonal_naive,,,,,,,,weekly seasonal baseline
+sarimax,,,,,,,,statistical
+xgboost,,,,,,,,machine learning
+lstm,,,,,,,,deep learning

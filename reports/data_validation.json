@@ -1,0 +1,98 @@
+{
+  "generated_at": "2026-08-06T17:11:01+00:00",
+  "n_rows": 105216,
+  "rows_changed": 0,
+  "rows_removed": 0,
+  "ok": true,
+  "n_failed": 0,
+  "n_warnings": 0,
+  "checks": [
+    {
+      "name": "required_columns",
+      "passed": true,
+      "severity": "fail",
+      "message": "All required columns present.",
+      "required": [
+        "timestamp_utc",
+        "settlement_date",
+        "settlement_period",
+        "nd_mw"
+      ],
+      "missing": []
+    },
+    {
+      "name": "demand_numeric",
+      "passed": true,
+      "severity": "fail",
+      "message": "'nd_mw' dtype is int64 (numeric=True); 0 NaN(s).",
+      "dtype": "int64",
+      "n_nan": 0
+    },
+    {
+      "name": "timestamps_ordered",
+      "passed": true,
+      "severity": "fail",
+      "message": "Timestamps are sorted ascending.",
+      "n_out_of_order": 0
+    },
+    {
+      "name": "no_negative_demand",
+      "passed": true,
+      "severity": "fail",
+      "message": "No negative demand.",
+      "n_negative": 0
+    },
+    {
+      "name": "duplicate_timestamps",
+      "passed": true,
+      "severity": "warn",
+      "message": "No duplicate timestamps.",
+      "n_duplicate_rows": 0,
+      "examples": []
+    },
+    {
+      "name": "missing_timestamps",
+      "passed": true,
+      "severity": "warn",
+      "message": "No gaps in the 30-minute grid.",
+      "n_missing": 0,
+      "expected_slots": 105216,
+      "examples": []
+    },
+    {
+      "name": "settlement_periods_valid",
+      "passed": true,
+      "severity": "fail",
+      "message": "0 out-of-range period(s); 0 beyond the day's expected count.",
+      "n_out_of_range": 0,
+      "n_over_expected": 0
+    },
+    {
+      "name": "timezone_utc",
+      "passed": true,
+      "severity": "fail",
+      "message": "tz=UTC, 0 NaT timestamp(s).",
+      "tz": "UTC",
+      "n_nat": 0
+    },
+    {
+      "name": "units_consistent",
+      "passed": true,
+      "severity": "warn",
+      "message": "0 value(s) outside [1000, 70000] MW.",
+      "n_out_of_envelope": 0,
+      "observed_min": 12803.0,
+      "observed_max": 46433.0
+    },
+    {
+      "name": "covers_requested_range",
+      "passed": true,
+      "severity": "warn",
+      "message": "Data spans 2020-01-01 00:00:00+00:00 .. 2025-12-31 23:30:00+00:00; requested 2020-01-01 .. 2025-12-31.",
+      "data_start": "2020-01-01T00:00:00+00:00",
+      "data_end": "2025-12-31T23:30:00+00:00",
+      "requested_start": "2020-01-01",
+      "requested_end": "2025-12-31"
+    }
+  ]
+}

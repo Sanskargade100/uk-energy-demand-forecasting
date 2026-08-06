@@ -43,7 +43,13 @@ models/*
 reports/figures/*
 !reports/figures/.gitkeep
 
+# Logs and outputs
+logs/
+mlruns/
+*.log
+
 # OS / IDE
 .DS_Store
+Thumbs.db
 .idea/
 .vscode/

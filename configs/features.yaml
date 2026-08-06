@@ -1,27 +1,26 @@
-# Feature engineering configuration.
-calendar:
-  add_hour: true
-  add_settlement_period: true      # 1..48/50 within the day
-  add_day_of_week: true
-  add_month: true
-  add_is_weekend: true
-  cyclical_encoding: [hour, day_of_week, month, settlement_period]  # sin/cos pairs
+lags:
+  - 1
+  - 2
+  - 48
+  - 96
+  - 336
 
-holidays:
-  add_is_holiday: true
-  add_days_to_next_holiday: true
-  add_bridge_day: true
+rolling_windows:
+  - 48
+  - 336
 
 weather:
-  aggregate: population_weighted    # combine city series into one GB series
-  add_heating_degrees: true         # base 15.5C
-  add_cooling_degrees: true         # base 22C
-  add_lags_hours: [1, 2, 3, 24]
+  - temperature_2m
+  - apparent_temperature
+  - precipitation
+  - cloud_cover
+  - wind_speed_10m
 
-lags:
-  target_lags_periods: [1, 2, 3, 48, 96, 336]   # 30m, ..., 1 day, 2 days, 1 week
-  rolling_windows_periods: [48, 336]            # 1 day, 1 week
-  rolling_stats: [mean, std, min, max]
-
-target_transform: none              # options: none | log
-horizon_periods: 96                 # 48h ahead at 30-min resolution
+calendar:
+  - hour
+  - minute
+  - day_of_week
+  - month
+  - day_of_year
+  - is_weekend
+  - is_bank_holiday

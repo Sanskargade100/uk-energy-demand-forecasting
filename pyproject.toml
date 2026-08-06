@@ -37,7 +37,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-deep = ["torch>=2.1", "pytorch-lightning>=2.1", "pytorch-forecasting>=1.0"]
+deep = ["tensorflow>=2.15", "torch>=2.1", "pytorch-lightning>=2.1", "pytorch-forecasting>=1.0"]
 dev = [
     "pytest>=8.0",
     "pytest-cov>=4.1",
@@ -60,7 +60,11 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-q --cov=energy_forecasting --cov-report=term-missing"
+# Skip slow (e.g. TensorFlow training) tests by default; run with: pytest -m slow
+addopts = "-q -m 'not slow' --cov=energy_forecasting --cov-report=term-missing"
+markers = [
+    "slow: heavy integration tests (deep-learning training); opt-in via -m slow",
+]
 
 [tool.ruff]
 line-length = 100

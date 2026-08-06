@@ -39,6 +39,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--start", default=cfg_start)
     parser.add_argument("--end", default=cfg_end)
     parser.add_argument("--skip-validate", action="store_true")
+    parser.add_argument("--to-sql", action="store_true", help="Also load into the SQLite DB.")
     parser.add_argument("--no-save", action="store_true")
     return parser.parse_args(argv)
 
@@ -63,6 +64,14 @@ def main(argv: list[str] | None = None) -> int:
 
     combined = clean_and_combine(start=args.start, end=args.end, save=not args.no_save)
     logger.info("Processed table: %d rows, %d columns.", len(combined), combined.shape[1])
+
+    if args.to_sql:
+        from energy_forecasting.data.database import init_db, load_processed
+
+        engine = init_db()
+        counts = load_processed(combined, engine)
+        logger.info("Loaded into SQLite: %s", counts)
+
     return 0
 
 

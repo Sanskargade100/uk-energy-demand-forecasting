@@ -45,6 +45,7 @@ from urllib3.util.retry import Retry
 
 from ..logging_config import get_logger
 from ..settings import INTERIM_DIR, RAW_DIR, get_settings
+from ..utils.time_utils import settlement_to_utc
 
 logger = get_logger(__name__)
 
@@ -85,7 +86,6 @@ COLUMN_RENAME: dict[str, str] = {
     "EMBEDDED_SOLAR_GENERATION": "embedded_solar_mw",
 }
 
-LONDON = "Europe/London"
 _YEAR_RE = re.compile(r"(19|20)\d{2}")
 
 
@@ -224,19 +224,6 @@ def download_year_file(
 # ---------------------------------------------------------------------------
 # Parsing / standardization
 # ---------------------------------------------------------------------------
-def settlement_to_utc(dates: pd.Series, periods: pd.Series) -> pd.Series:
-    """Convert (settlement_date, settlement_period) to a UTC timestamp.
-
-    DST-correct: we localize only *local midnight* (never ambiguous in the UK,
-    since transitions occur at 01:00), then add absolute 30-minute offsets. This
-    yields the right instants across spring-forward (46-period) and autumn
-    (50-period) days.
-    """
-    midnight_local = pd.to_datetime(dates).dt.tz_localize(LONDON)
-    offsets = pd.to_timedelta((periods.astype(int) - 1) * 30, unit="m")
-    return (midnight_local + offsets).dt.tz_convert("UTC")
-
-
 def standardize_demand(df: pd.DataFrame) -> pd.DataFrame:
     """Rename to lowercase ``*_mw`` columns, add ``timestamp_utc``, type + dedup.
 

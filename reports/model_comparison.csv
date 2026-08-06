@@ -1,5 +1,6 @@
-model,mae_mw,rmse_mw,mape_pct,pinball_80,pinball_95,coverage_80,coverage_95,notes
-seasonal_naive,,,,,,,,weekly seasonal baseline
-sarimax,,,,,,,,statistical
-xgboost,,,,,,,,machine learning
-lstm,,,,,,,,deep learning
+model,mae,rmse,wape,peak_mae,training_seconds
+xgboost,1139.7495595560786,1527.0415392120337,4.356958375537136,1108.6444229910715,
+baseline_recent_4wk_avg,2080.0899828522433,2801.8016504136995,7.9516288439618945,3163.4914285714285,
+baseline_last_week,2184.8926264647043,2920.5236844732176,8.352261379449422,3161.4205714285713,
+baseline_yesterday,2208.6330665904543,3020.058554634492,8.44301474590399,2318.356,
+baseline_last_value,4644.1906830523,6106.455752081495,17.75350148149863,12300.746,

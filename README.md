@@ -59,6 +59,30 @@ These dates can be adjusted to match data availability, but the **final test per
 stays completely untouched until model selection is finished** — it is used once, after the
 winning model and hyperparameters are locked, to report unbiased performance.
 
+## Multi-step forecasting strategy
+
+The horizon is 96 half-hours. There are four ways to produce a multi-step forecast:
+
+| Strategy | How | Trade-off |
+|----------|-----|-----------|
+| Recursive | Predict one step, feed it back | Simple, but errors accumulate over 96 steps |
+| Direct | One model per horizon | Strong, but 96 models to train/serve |
+| Multi-output | One model predicts all 96 | Natural for deep learning |
+| **Horizon-feature** | One model, `forecast_horizon` as an input | Good balance — chosen for XGBoost |
+
+**XGBoost (initial version): horizon-feature.** For every origin time `o` and horizon
+`h ∈ 1..96` we build one training row containing demand-history features known *at the
+origin*, calendar/weather for the forecasted timestamp `o + h`, and `forecast_horizon = h`;
+the target is demand at `o + h`. A single model then serves all horizons.
+(`features/supervised.py::make_horizon_samples`.)
+
+**LSTM: sequence-to-sequence.** An input window of the previous **336** periods (7 days)
+maps to the next **96** periods (2 days). (`features/supervised.py::make_sequences`.)
+
+Leakage is controlled by construction: demand-history features are taken from the origin
+row (only past demand), calendar for `o + h` is deterministic, and weather for `o + h` is
+taken from a forecast that would have been available at the origin.
+
 ## What this project demonstrates
 
 - Time-series data collection, validation and feature engineering (calendar, weather, holiday, lag/rolling)
